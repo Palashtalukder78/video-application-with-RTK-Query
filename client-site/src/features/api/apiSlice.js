@@ -8,7 +8,10 @@ export const apiSlice = createApi({
       query: () => "/videos",
     //   keepUnusedDataFor: 5, // [ses]- how long to keep cached data in the store after the last subscriber stops using it.
     }),
+    getVideo: builder.query({
+        query: (id)=> `/videos/${id}`
+    })
   }),
 });
 
-export const {useGetVideosQuery} = apiSlice;
+export const {useGetVideosQuery, useGetVideoQuery} = apiSlice;
