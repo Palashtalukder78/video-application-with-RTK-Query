@@ -10,9 +10,16 @@ import Error from "../ui/Error";
 
 export default function Video() {
   const { videoId } = useParams();
-  const { data: video, isLoading, isError, error } = useGetVideoQuery(videoId);
+  const {
+    data: video,
+    isLoading,
+    isError,
+    error,
+  } = useGetVideoQuery(videoId, {
+    // refetchOnMountOrArgChange: 5, //fetch fresh data whenever a component using the query mounts or when the query's arguments change.
+  });
 
-  const {link, description, title} = video || {}
+  const {link, title} = video || {}
 
   let content = null;
   if (isLoading)
@@ -38,7 +45,7 @@ export default function Video() {
             {content}
           </div>
           {video?.id ? (
-            <RelatedVideos id={video.id} title={video.title} />
+            <RelatedVideos id={video?.id} title={video?.title} />
           ) : isLoading ? (
             <RelatedVideoLoader />
           ) : (
